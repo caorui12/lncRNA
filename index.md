@@ -15,9 +15,8 @@ Syntax highlighted code block
 ## Header 2
 ### Header 3
 
-- Bulleted
-- List
-
+![This is a figure](https://en.wikipedia.org/wiki/Crocodile#/media/File:Nile_crocodile_head.jpg)    
+![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
 1. Numbered
 2. List
 
