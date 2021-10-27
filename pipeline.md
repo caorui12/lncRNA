@@ -55,3 +55,19 @@ done
 ```
 nohup ./runtophat2.sh 
 ```
+### Assemble the transcripts using cufflinks
+```
+cufflinks -p 40 -g ../genome/Mus_musculus.GRCm39.104.gtf -o B6E10_5A B6E10_5A/accepted_hits.bam 
+```
+run rest of samples
+
+```
+#!/usr/bin/bash
+for sample in `cat sampleList.txt`
+do
+echo $sample
+cufflinks -p 40 -g ../genome/Mus_musculus.GRCm39.104.gtf -o $sample $sample/accepted_hits.bam
+done
+#script name: runcuff.sh
+nohup ./runcuff.sh 
+```
