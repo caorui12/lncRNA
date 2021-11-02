@@ -71,3 +71,23 @@ done
 #script name: runcuff.sh
 nohup ./runcuff.sh 
 ```
+
+### merge gtf
+```
+find . -name transcripts.gtf > assemblies.txt
+cuffmerge -p 40 -g ../genome/Mus_musculus.GRCm39.104.gtf -s ../genome/Mus_musculus.GRCm39.dna.toplevel.fa assemblies.txt  
+```
+### get the different experssion level of each locus and transcripts
+```
+cuffdiff -o diff_out -b ../genome/Mus_musculus.GRCm39.dna.toplevel.fa -p 40 -L E10,E12,E14,E16,E18 -u merged_asm/merged.gtf \
+B6E10_5A/accepted_hits.bam,B6E10_5C/accepted_hits.bam \
+B6E12_5A/accepted_hits.bam,B6E12_5B/accepted_hits.bam,B6E12_5C/accepted_hits.bam \
+B6E14_5B/accepted_hits.bam,B6E14_5C/accepted_hits.bam,B6E14_5D/accepted_hits.bam \
+B6E16_5A/accepted_hits.bam,B6E16_5B/accepted_hits.bam,B6E16_5C/accepted_hits.bam \
+B6E18_5A/accepted_hits.bam,B6E18_5E/accepted_hits.bam,B6E18_5F/accepted_hits.bam 
+```
+
+### select gtf 
+'''
+grep 'class_code "[uiox]"' merged.gtf >selected.gtf
+'''
