@@ -88,6 +88,6 @@ B6E18_5A/accepted_hits.bam,B6E18_5E/accepted_hits.bam,B6E18_5F/accepted_hits.bam
 ```
 
 ### select gtf 
-'''
+```
 grep 'class_code "[uiox]"' merged.gtf >selected.gtf
-'''
+```
