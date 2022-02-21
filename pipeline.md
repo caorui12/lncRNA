@@ -76,18 +76,33 @@ nohup ./runcuff.sh
 ```
 find . -name transcripts.gtf > assemblies.txt
 cuffmerge -p 40 -g ../genome/Mus_musculus.GRCm39.104.gtf -s ../genome/Mus_musculus.GRCm39.dna.toplevel.fa assemblies.txt  
+
 ```
 ### get the different experssion level of each locus and transcripts
 ```
-cuffdiff -o diff_out -b ../genome/Mus_musculus.GRCm39.dna.toplevel.fa -p 40 -L E10,E12,E14,E16,E18 -u merged_asm/merged.gtf \
-B6E10_5A/accepted_hits.bam,B6E10_5C/accepted_hits.bam \
-B6E12_5A/accepted_hits.bam,B6E12_5B/accepted_hits.bam,B6E12_5C/accepted_hits.bam \
-B6E14_5B/accepted_hits.bam,B6E14_5C/accepted_hits.bam,B6E14_5D/accepted_hits.bam \
-B6E16_5A/accepted_hits.bam,B6E16_5B/accepted_hits.bam,B6E16_5C/accepted_hits.bam \
-B6E18_5A/accepted_hits.bam,B6E18_5E/accepted_hits.bam,B6E18_5F/accepted_hits.bam 
+cuffdiff -o diff_out -b ../genome/Mus_musculus.GRCm39.dna.toplevel.fa -p 40 -L E11,E12,E13,E14,E15,E16,E17,E18,P0,P1,P3,P7 -u merged_asm/merged.gtf \ 
+> B6E115A/accepted_hits.bam,B6E115B/accepted_hits.bam,B6E115C/accepted_hits.bam \
+> B6E12_5A/accepted_hits.bam,B6E12_5B/accepted_hits.bam,B6E12_5C/accepted_hits.bam \
+> B6E135A/accepted_hits.bam,B6E135B/accepted_hits.bam,B6E135D/accepted_hits.bam \
+> B6E14_5B/accepted_hits.bam,B6E14_5C/accepted_hits.bam,B6E14_5D/accepted_hits.bam \
+> B6E155A/accepted_hits.bam,B6E155C/accepted_hits.bam,B6E155D/accepted_hits.bam \
+> B6E16_5A/accepted_hits.bam,B6E16_5B/accepted_hits.bam,B6E16_5C/accepted_hits.bam \
+> B6E175A/accepted_hits.bam,B6E175B/accepted_hits.bam,B6E175C/accepted_hits.bam \
+> B6E185H/accepted_hits.bam,B6E18_5A/accepted_hits.bam,B6E18_5E/accepted_hits.bam \
+> B6P0A/accepted_hits.bam,B6P0B/accepted_hits.bam,B6P0C/accepted_hits.bam \
+> B6P1B/accepted_hits.bam,B6P1C/accepted_hits.bam,B6P1D/accepted_hits.bam \
+> B6P3A/accepted_hits.bam,B6P3B/accepted_hits.bam,B6P3C/accepted_hits.bam \
+> B6P7A/accepted_hits.bam,B6P7B/accepted_hits.bam,B6P7C/accepted_hits.bam
 ```
 
 ### select gtf 
 ```
 grep 'class_code "[uiox]"' merged.gtf >selected.gtf
+~/gffread/gffread -w selected.fa -g ../genome/Mus_musculus.GRCm39.dna.toplevel.fa merged_asm/selected.gtf
+```
+### calculate coding potential
+
+```
+~/CPC2_standalone-1.0.1/bin/CPC2.py -i selected.fa -o CPC2_result.txt
+less CPC2_result.txt|grep 'noncoding'|awk '{print $1}'> CPC2_id.txt
 ```
